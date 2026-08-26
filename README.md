@@ -16,22 +16,26 @@ An evidence-first collection of **security, safety, robustness, and evaluation r
 
 <sub>Perception → Reasoning → Planning → Action</sub>
 
-[Surveys (35)](#surveys) · [Attacks (43)](#attacks) · [Defenses (20)](#defenses) · [Benchmarks (25)](#benchmarks) · [Ranking guide](#how-to-read-the-tables) · [Perspectives](#expert-perspectives--frontier-reading) · [Contributing](#maintenance-and-contributing)
+[Surveys (39)](#surveys) · [Attacks (61)](#attacks) · [Defenses (33)](#defenses) · [Benchmarks (38)](#benchmarks) · [Standards & assurance](#standards--assurance) · [Ranking guide](#how-to-read-the-tables) · [Perspectives](#expert-perspectives--frontier-reading) · [Contributing](#maintenance-and-contributing)
 
 </div>
+
+> [!IMPORTANT]
+> **Corrections and contributions.** We sincerely apologize for any classification or metadata errors. If you notice one, please contact the maintainers or [open an issue](https://github.com/TheFatInsect/Awesome-Embodied-AI-Safety-Security/issues) so we can correct it promptly. We also warmly welcome issues and pull requests that suggest missing work—including your own papers.
 
 ## Scope and curation policy
 
 This list focuses on systems in which a large language model (LLM), vision-language model (VLM), vision-language-action model (VLA), or vision-language-navigation model (VLN) participates in a perception-to-action loop. A work is included when it studies a concrete security or safety problem, mitigation, audit method, or evaluation setting that can affect embodied planning, interaction, control, or physical execution.
 
-The catalog contains **123 categorized entries**: 35 related surveys and 88 technical studies. Boundary-setting work may be cross-listed when it serves distinct roles in two categories. General adversarial-ML, autonomous-driving, reinforcement-learning, or agent-security papers are included only when their threat, evidence, or mechanism reaches the embodied loop. Every entry follows the same metadata and verification standard, regardless of when it was discovered.
+The catalog contains **171 categorized research entries**: 39 related surveys and 132 technical studies. Boundary-setting work may be cross-listed when it serves distinct roles in two categories. General adversarial-ML, autonomous-driving, reinforcement-learning, or agent-security papers are included only when their threat, evidence, or mechanism reaches the embodied loop. Every entry follows the same metadata and verification standard, regardless of when it was discovered. Standards and assurance frameworks form a separate reference track and are excluded from this research-paper count.
 
 | Collection | Count | What it covers |
 |:--|--:|:--|
-| 📚&nbsp;[Surveys](#surveys) | 35 | Embodied AI, FM/agent security, and adjacent reviews used to map the field |
-| ⚔️&nbsp;[Attacks](#attacks) | 43 | Jailbreaks, prompt injection, backdoors, poisoning, adversarial inputs, and control hijacking |
-| 🛡️&nbsp;[Defenses](#defenses) | 20 | Planner screening, runtime enforcement, formal safety, representation repair, and external safeguards |
-| 🧪&nbsp;[Benchmarks](#benchmarks) | 25 | Planning risk, interactive safety, robustness, red teaming, and system auditing |
+| 📚&nbsp;[Surveys](#surveys) | 39 | Embodied AI, FM/agent security, and adjacent reviews used to map the field |
+| ⚔️&nbsp;[Attacks](#attacks) | 61 | Jailbreaks, prompt injection, backdoors, poisoning, adversarial inputs, and control hijacking |
+| 🛡️&nbsp;[Defenses](#defenses) | 33 | Planner screening, runtime enforcement, formal safety, representation repair, and external safeguards |
+| 🧪&nbsp;[Benchmarks](#benchmarks) | 38 | Planning risk, interactive safety, robustness, red teaming, and system auditing |
+| 📐&nbsp;[Standards & assurance](#standards--assurance) | 16 core entries<br>3 watch items | Robot safety, functional safety, AI risk/security governance, and assurance cases |
 
 <details open>
 <summary><strong>Explore the topic map</strong></summary>
@@ -39,9 +43,10 @@ The catalog contains **123 categorized entries**: 35 related surveys and 88 tech
 | Track | Topics |
 |:--|:--|
 | Surveys | [Robotics security](#embodied-ai-and-robotics-security) · [LLM/VLM security](#llm-and-vision-language-model-security) · [Foundation models](#foundation-models-in-embodied-ai) · [Agent security](#agent-security) · [Physical risk](#embodied-llmvlm-security-and-physical-risk) |
-| Attacks | [Planner jailbreak](#planner-jailbreak-and-prompt-injection) · [Context poisoning](#planner-context-poisoning-and-backdoors) · [Perception-delivered injection](#perception-delivered-prompt-injection-and-cross-modal-jailbreak) · [Visual attacks](#visual-and-perceptual-attacks-on-planning) · [VLA inference](#vla-inference-and-action-generation-attacks) · [Instruction hijacking](#vla-reasoning-and-instruction-hijacking) · [Policy poisoning](#training-time-backdoors-and-persistent-policy-poisoning) · [VLN attacks](#vision-language-navigation-attacks) |
-| Defenses | [Planner screening](#planner-screening-and-safety-steering) · [Runtime guarantees](#runtime-checks-and-formal-guarantees) · [Defense coordination](#system-architecture-and-defense-coordination) · [VLA safety layers](#vla-representation-and-external-safety-layers) |
-| Benchmarks | [Planning risk](#planning-refusal-and-semantic-risk) · [Interactive safety](#interactive-safety-and-calibrated-abstention) · [VLA robustness](#perception-control-and-vla-robustness) · [System auditing](#security-operational-and-governance-auditing) |
+| Attacks | [Planner jailbreak](#planner-jailbreak-and-prompt-injection) · [Context poisoning](#planner-context-poisoning-and-backdoors) · [Perception-delivered injection](#perception-delivered-prompt-injection-and-cross-modal-jailbreak) · [Visual attacks](#visual-and-perceptual-attacks-on-planning) · [VLA inference](#vla-inference-and-action-generation-attacks) · [Instruction hijacking](#vla-reasoning-and-instruction-hijacking) · [Policy poisoning](#training-time-backdoors-and-persistent-policy-poisoning) · [VLN attacks](#vision-language-navigation-attacks) · [Recent supply-chain backdoors](#recent-training-time-and-supply-chain-backdoors) · [Multi-robot & system-state](#multi-robot-communication-and-system-state-attacks) · [Recent cross-layer attacks](#recent-vla-world-action-privacy-and-navigation-attacks) |
+| Defenses | [Planner screening](#planner-screening-and-safety-steering) · [Runtime guarantees](#runtime-checks-and-formal-guarantees) · [Defense coordination](#system-architecture-and-defense-coordination) · [VLA safety layers](#vla-representation-and-external-safety-layers) · [Recent safeguards](#recent-runtime-alignment-and-certified-safeguards) |
+| Benchmarks | [Planning risk](#planning-refusal-and-semantic-risk) · [Interactive safety](#interactive-safety-and-calibrated-abstention) · [VLA robustness](#perception-control-and-vla-robustness) · [System auditing](#security-operational-and-governance-auditing) · [Recent diagnostics](#recent-diagnostic-temporal-and-red-team-benchmarks) |
+| Standards | [Core standards & frameworks](#core-standards-and-frameworks) · [Standards in progress](#standards-in-progress) |
 
 </details>
 
@@ -135,6 +140,10 @@ The catalog contains **123 categorized entries**: 35 related surveys and 88 tech
 | S33 | [A Comprehensive Survey on Physical Risk Control in the Era of Foundation Model-enabled Robotics](https://www.ijcai.org/proceedings/2025/1168) | Takeshi Kojima; Yaonan Zhu; Yusuke Iwasawa; Toshinori Kitamura; *et al.* | IJCAI Survey Track, 2025 | Direct | ![CCF B](assets/rank-badges/ccf-b.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [PDF](https://www.ijcai.org/proceedings/2025/1168.pdf) |
 | S34 | [On the Vulnerability of LLM/VLM-Controlled Robotics](https://arxiv.org/abs/2402.10340) | Xiyang Wu; Souradip Chakraborty; Ruiqi Xian; Jing Liang; *et al.* | arXiv empirical study, 2024 | Context | — | — | — | [PDF](https://arxiv.org/pdf/2402.10340) |
 | S35 | [Trust in LLM-controlled Robotics: A Survey of Security Threats, Defenses and Challenges](https://arxiv.org/abs/2601.02377) | Xinyu Huang; Shyam Karthick V B; Taozhao Chen; Mitch Bryson; Thomas Chaffey; Huaming Chen; Kim-Kwang Raymond Choo; Ian R. Manchester | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2601.02377) |
+| S36 | [Vision-Language-Action Safety: Threats, Challenges, Evaluations, and Mechanisms](https://arxiv.org/abs/2604.23775) | Qi Li; Bo Yin; Weiqi Huang; Ruhao Liu; *et al.* | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2604.23775) |
+| S37 | [SoK: Security and Privacy of Foundation-Model-Powered Robots](https://arxiv.org/abs/2606.16788) | Xueluan Gong; Chen Chen; Jinxin Liu; Qian Wang; Kwok-Yan Lam | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2606.16788) |
+| S38 | [Security of World-Model-Based Embodied AI: A Lifecycle of Threats, Defenses, and Evaluation](https://arxiv.org/abs/2607.28226) | Fazhong Liu; Zhuoyan Chen; Haozhen Tan; Yan Meng; Guoxing Chen; Haojin Zhu | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2607.28226) |
+| S39 | [Security of Foundation-Model-Powered Embodied Agents: Attack Surfaces, Attacks, Defenses, and Evaluation](https://arxiv.org/abs/2608.16843) | Jiawei Liu; Jiacheng Guo; Tian Zhang; Yiwei Xu; Juan Wang; Jinlin Fan; Bowen Xiao | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2608.16843) |
 <!-- SURVEY_TABLES_END -->
 
 <p align="right"><a href="#top">Back to top ↑</a></p>
@@ -226,6 +235,39 @@ The catalog contains **123 categorized entries**: 35 related surveys and 88 tech
 | A41 | [Towards Physically Realizable Adversarial Attacks in Embodied Vision Navigation](https://arxiv.org/abs/2409.10071) | Meng Chen; Jiawei Tu; Chao Qi; Yonghao Dang; Feng Zhou; Wei Wei; Jianqin Yin | IROS, 2025 | ![CCF C](assets/rank-badges/ccf-c.svg) | — | ![ICORE A](assets/rank-badges/icore-a.svg) | [PDF](https://arxiv.org/pdf/2409.10071) · [Code](https://github.com/chen37058/Physical-Attacks-in-Embodied-Nav) |
 | A42 | [Malicious Path Manipulations via Exploitation of Representation Vulnerabilities of Vision-Language Navigation Systems](https://arxiv.org/abs/2407.07392) | Chashi Mahiul Islam; Shaeke Salman; Montasir Shams; Xiuwen Liu; Piyush Kumar | IROS, 2024 | ![CCF C](assets/rank-badges/ccf-c.svg) | — | ![ICORE A](assets/rank-badges/icore-a.svg) | [PDF](https://arxiv.org/pdf/2407.07392) |
 | A43 | [How Secure Are Large Language Models (LLMs) for Navigation in Urban Environments?](https://arxiv.org/abs/2402.09546) | Congcong Wen; Jiazhao Liang; Shuaihang Yuan; Hao Huang; *et al.* | arXiv, 2024 | — | — | — | [PDF](https://arxiv.org/pdf/2402.09546) |
+
+### Recent training-time and supply-chain backdoors
+
+| No. | Paper | Authors | Venue, year | CCF | CAS | ICORE | Resources |
+|:--:|:--|:--|:--|:--:|:--:|:--:|:--|
+| A44 | [From Prompt to Physical Action: Structured Backdoor Attacks on LLM-Mediated Robotic Control Systems](https://arxiv.org/abs/2604.03890) | Mingyang Xie; Jin Wei-Kocsis | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2604.03890) |
+
+### Multi-robot communication and system-state attacks
+
+| No. | Paper | Authors | Venue, year | CCF | CAS | ICORE | Resources |
+|:--:|:--|:--|:--|:--:|:--:|:--:|:--|
+| A45 | [Propagating Unsafe Actions in LLM Controlled Multi-Robot Collaboration via Single Robot Compromise](https://arxiv.org/abs/2605.15641) | Zhen Huang; Zhihuang Liu; Mengxuan Luo; Weishang Wu; Zhiping Cai | IJCAI, 2026 | ![CCF B](assets/rank-badges/ccf-b.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [IJCAI #3903](https://2026.ijcai.org/accepted-papers/?ijtrack=main-track) · [Official preprint PDF](https://ijcai-preprints.s3.us-west-1.amazonaws.com/2026/3903.pdf) · [arXiv](https://arxiv.org/abs/2605.15641) · [PDF](https://arxiv.org/pdf/2605.15641) · [Code](https://github.com/TheFatInsect/InfectBot) |
+| A46 | [RIPA: Sensory-Vector Prompt Injection Attacks on LLM-Controlled ROS 2 Robots](https://arxiv.org/abs/2606.28649) | Nima Dorzhiev | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2606.28649) |
+| A47 | [When Prompts Control Robots: Prompt Injection Attacks in Multi-Agent Robotic Systems](https://arxiv.org/abs/2608.00747) | Neha Nagaraja; Amisha Bagari; Hayretdin Bahsi | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2608.00747) |
+| A48 | [When Coordination Becomes a Threat: Communication Attacks in LLM-Controlled Multi-Robot Systems](https://arxiv.org/abs/2608.06830) | Zhen Huang; Zhihuang Liu; Weijia Shi; Yifan Yang; Weishang Wu; Zhiping Cai | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2608.06830) · [Code (base/partial)](https://github.com/TheFatInsect/InfectBot) |
+| A49 | [Breaking Planner Integrity Boundary: Enviroment State-Text Injection Attack on LLM-Driven Embodied Agents](https://arxiv.org/abs/2608.16806) | Jiawei Liu; Jiacheng Guo; Tian Zhang; Yiwei Xu; *et al.* | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2608.16806) |
+
+### Recent VLA, world-action, privacy, and navigation attacks
+
+| No. | Paper | Authors | Venue, year | CCF | CAS | ICORE | Resources |
+|:--:|:--|:--|:--|:--:|:--:|:--:|:--|
+| A50 | [BadNAVer: Exploring Jailbreak Attacks On Vision-and-Language Navigation](https://arxiv.org/abs/2505.12443) | Wenqi Lyu; Zerui Li; Yanyuan Qiao; Qi Wu | arXiv, 2025 | — | — | — | [PDF](https://arxiv.org/pdf/2505.12443) |
+| A51 | [Adversarial Attacks on Robotic Vision Language Action Models](https://arxiv.org/abs/2506.03350) | Eliot Krzysztof Jones; Alexander Robey; Andy Zou; Zachary Ravichandran; George J. Pappas; Hamed Hassani; Matt Fredrikson; J. Zico Kolter | arXiv, 2025 | — | — | — | [PDF](https://arxiv.org/pdf/2506.03350) · [Code](https://github.com/eliotjones1/robogcg) |
+| A52 | [Altered Thoughts, Altered Actions: Probing Chain-of-Thought Vulnerabilities in VLA Robotic Manipulation](https://arxiv.org/abs/2603.12717) | Tuan Duong Trinh; Naveed Akhtar; Basim Azam | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2603.12717) |
+| A53 | [Membership Inference Attacks on Vision-Language-Action Models](https://arxiv.org/abs/2605.07088) | Yuefeng Peng; Mingzhe Li; Kejing Xia; Renhao Zhang; Amir Houmansadr | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2605.07088) |
+| A54 | [VLA-Hijack: A Transferable Patch Attack against Vision-Language-Action Models via Visual Proprioception Hijacking](https://arxiv.org/abs/2605.28083) | Jiyuan Fu; Kaixun Jiang; Jingkai Jia; Zhaoyu Chen; *et al.* | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2605.28083) |
+| A55 | [Attacking the Trusted Imagination: Oracle-Level Integrity Attacks on Imagine-then-Act World Models](https://arxiv.org/abs/2606.22966) | Linghan Chen; Kaiyan Ji; Minyu Guo | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2606.22966) |
+| A56 | [AdvNav: Behavior-Guided Black-Box Adversarial Attacks on Vision-Language Navigation](https://arxiv.org/abs/2607.11063) | Chenyang Li; Kaige Li; Zeyu Jiang; Changhao Chen | ACM MM, 2026 | ![CCF A](assets/rank-badges/ccf-a.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [PDF](https://arxiv.org/pdf/2607.11063) |
+| A57 | [BadWAM: When World-Action Models Dream Right but Act Wrong](https://arxiv.org/abs/2607.15207) | Qi Li; Xingyi Yang; Xinchao Wang | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2607.15207) |
+| A58 | [When Words Are Safe But Actions Kill: Probing Physical Jailbreak Beyond Textual Jailbreak in Hidden-State Risk Space](https://arxiv.org/abs/2607.15218) | Weimeng Wang; Ziqiang Wang; Zihang Zhan; Chuanpu Fu; Qi Li; Ke Xu | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2607.15218) |
+| A59 | [Hidden in Plain Sight: Diffusion-Based Unrestricted Robotic Attacks on Vision-Language-Action Models](https://arxiv.org/abs/2608.10393) | Jiahui Han; Yuhui Yao; Xin Wang; Jiafei Cao; *et al.* | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2608.10393) |
+| A60 | [UniTexture: Cross-Task Universal Adversarial Textures for Vision-Language-Action Models](https://arxiv.org/abs/2608.13453) | Yukun Dai; Mingzhe Dai; Tianshi Wang; Fengling Li; Jingjing Li; Lei Zhu | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2608.13453) |
+| A61 | [Bit-Flip Attacks on Vision-Language-Action Models: Action-Decoding Architecture Shapes the Vulnerability](https://arxiv.org/abs/2608.15475) | Yudong Gao; Linghan Chen; Wenhan Wu; Mia Zhou; Jiyao Wang; Kaiyan Ji; Mingyu Guo; Honglong Chen | arXiv, 2026 | — | — | — | [PDF](https://arxiv.org/pdf/2608.15475) |
 <!-- ATTACK_TABLES_END -->
 
 <p align="right"><a href="#top">Back to top ↑</a></p>
@@ -276,6 +318,24 @@ The catalog contains **123 categorized entries**: 35 related surveys and 88 tech
 | D18 | [VLSA: Vision-Language-Action Models with Plug-and-Play Safety Constraint Layer](https://arxiv.org/abs/2512.11891) | Songqiao Hu; Zeyi Liu; Shuang Liu; Jun Cen; Zihan Meng; Shihefeng Wang; Xiang Li; Xiao He | IROS 2026 (accepted) | Direct | ![CCF C](assets/rank-badges/ccf-c.svg) | — | ![ICORE A](assets/rank-badges/icore-a.svg) | [PDF](https://arxiv.org/pdf/2512.11891) · [Project](https://vlsa-aegis.github.io/) · [Code](https://github.com/THU-RCSCT/vlsa-aegis) |
 | D19 | [Semantically Safe Robot Manipulation: From Semantic Scene Understanding to Motion Safeguards](https://doi.org/10.1109/LRA.2025.3553046) | Lukas Brunke; Yanni Zhang; Ralf Römer; Jack Naimer; Nikola Staykov; Siqi Zhou; Angela P. Schoellig | *IEEE Robotics and Automation Letters*, 2025 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2410.15185) · [Project](https://learnsyslab.github.io/semantic-manipulation/) |
 | D20 | [Run-Time Observation Interventions Make Vision-Language-Action Models More Visually Robust](https://doi.org/10.1109/ICRA55743.2025.11128017) | Asher J. Hancock; Allen Z. Ren; Anirudha Majumdar | ICRA 2025 | Adjacent | ![CCF B](assets/rank-badges/ccf-b.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [PDF](https://arxiv.org/pdf/2410.01971) · [Project](https://aasherh.github.io/byovla/) · [Code](https://github.com/irom-lab/byovla) |
+
+### Recent runtime, alignment, and certified safeguards
+
+| No. | Paper | Authors | Venue, year | Scope | CCF | CAS | ICORE | Resources |
+|:--:|:--|:--|:--|:--:|:--:|:--:|:--:|:--|
+| D21 | [SAFE: Multitask Failure Detection for Vision-Language-Action Models](https://arxiv.org/abs/2506.09937) | Qiao Gu; Yuanliang Ju; Shengxiang Sun; Igor Gilitschenski; Haruki Nishimura; Masha Itkina; Florian Shkurti | NeurIPS, 2025 | Direct | ![CCF A](assets/rank-badges/ccf-a.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [PDF](https://arxiv.org/pdf/2506.09937) · [Project](https://vla-safe.github.io/) |
+| D22 | [Pre-VLA: Preemptive Runtime Verification for Reliable Vision-Language-Action and World-Model Rollouts](https://arxiv.org/abs/2605.22446) | Zhen Sun; Yongjian Guo; Haoran Sun; Luqiao Wang; *et al.* | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2605.22446) |
+| D23 | [EMBGuard: Constructing Hazard-Aware Guardrails for Safe Planning in Embodied Agents](https://arxiv.org/abs/2605.30924) | Dongwook Choi; Taeyoon Kwon; Bogyung Jeong; Minju Kim; *et al.* | ICML, 2026 (accepted) | Direct | ![CCF A](assets/rank-badges/ccf-a.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [PDF](https://arxiv.org/pdf/2605.30924) · [Code/Data](https://github.com/dongwxxkchoi/EMBGuard) |
+| D24 | [VASO: Formally Verifiable Self-Evolving Skills for Physical AI Agents](https://arxiv.org/abs/2606.05395) | Yunhao Yang; Neel P. Bhatt; Kevin Wang; Samuel Tetteh; Zhangyang Wang; Ufuk Topcu | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2606.05395) · [Project](https://languagegroundedriskdetection.github.io/ProjectPage/vaso-webpage/) |
+| D25 | [ProbeAct: Probe-Guided Training-Free Failure Recovery in Vision-Language-Action Models](https://arxiv.org/abs/2606.09740) | Fan Zhang; Seongbin Park; Baharan Mirzasoleiman; Shariar Talebi; Nader Sehatbakhsh | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2606.09740) |
+| D26 | [Your Model Already Knows: Attention-Guided Safety Filter for Vision-Language-Action Models](https://arxiv.org/abs/2606.09749) | Seongbin Park; Fan Zhang; Baharan Mirzasoleiman; Shahriar Talebi; Nader Sehatbakhsh | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2606.09749) |
+| D27 | [LabGuard: Grounding Natural-Language Laboratory Rules into Runtime Guards for Embodied Laboratory Agents](https://arxiv.org/abs/2606.31045) | Jingpu Yang; Fengxian Ji; Zhengzhao Lai; Zhexuan Cui; *et al.* | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2606.31045) |
+| D28 | [Neuro-Symbolic Safety Guidance for Vision-Language-Action Models via Constrained Flow Matching](https://arxiv.org/abs/2607.01378) | William English; Hao Zheng; Rickard Ewetz | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2607.01378) · [Project](https://willenglish.tech/SafetyGuidedFlowMatching/) |
+| D29 | [Safe Vision Language Action Models via Barrier Enhanced Flow Matching](https://arxiv.org/abs/2607.29569) | Kasra Sinaei; Hung-Chieh Wu; Donald Ebeigbe | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2607.29569) |
+| D30 | [Towards General Language-Conditioned Latent Safety Filters](https://arxiv.org/abs/2608.00315) | Ihab Tabbara; Yuxuan Yang; Hussein Sibai | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2608.00315) |
+| D31 | [Calibrated Predictive Safety for Heterogeneous Robots: An Action-Conditioned JEPA Framework with Model-Based Safety Shields](https://arxiv.org/abs/2608.17496) | Kaiming Zhong; Tianhua Liu; Yue Wang | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2608.17496) |
+| D32 | [SafeBranch: Branch-Pair Safety Alignment for Embodied Agents](https://arxiv.org/abs/2608.19729) | Hyunse Lee; Jiwoo Jeong; Haneul Lee; Kyochul Jang; Youngjae Yu; Woojin Lee | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2608.19729) |
+| D33 | [CertVLA: Certified Defense against Physical Visual Attacks for Vision-Language-Action Models](https://arxiv.org/abs/2608.20791) | Hui Lu; Zhijie Peng; Yuqi Lin; Zaijia Yang; *et al.* | arXiv, 2026 | Direct | — | — | — | [PDF](https://arxiv.org/pdf/2608.20791) |
 <!-- DEFENSE_TABLES_END -->
 
 <p align="right"><a href="#top">Back to top ↑</a></p>
@@ -331,7 +391,60 @@ The catalog contains **123 categorized entries**: 35 related surveys and 88 tech
 | B23 | [CYBERTEAM — Benchmarking LLMs in an Embodied Environment for Blue Team Threat Hunting](https://arxiv.org/abs/2505.11901) | Xiaoqun Liu; Feiyang Yu; Xi Li; Guanhua Yan; Ping Yang; Zhaohan Xi | arXiv, 2025 | Audit/Governance | — | — | — | [PDF](https://arxiv.org/pdf/2505.11901) |
 | B24 | [RoboJailBench: Benchmarking Adversarial Attacks and Defenses in Embodied Robotic Agents](https://arxiv.org/abs/2605.19328) | Doguhan Yeke; Yanming Zhou; Leo Y. Lin; Hongyu Cai; Antonio Bianchi; Z. Berkay Celik | arXiv, 2026 | Audit/Governance | — | — | — | [PDF](https://arxiv.org/pdf/2605.19328) · [Project](https://purseclab.github.io/benchmark-for-robotics-security/) · [Code](https://github.com/purseclab/benchmark-for-robotics-security) |
 | B25 | [EmbodiedGovBench: A Benchmark for Governance, Recovery, and Upgrade Safety in Embodied Agent Systems](https://arxiv.org/abs/2604.11174) | Xue Qin; Simin Luan; John See; Cong Yang; Zhijun Li | arXiv, 2026 | Audit/Governance | — | — | — | [PDF](https://arxiv.org/pdf/2604.11174) · [Code](https://github.com/s20sc/embodied-gov-bench) |
+
+### Recent diagnostic, temporal, and red-team benchmarks
+
+| No. | Paper | Authors | Venue, year | Scope | CCF | CAS | ICORE | Resources |
+|:--:|:--|:--|:--|:--:|:--:|:--:|:--:|:--|
+| B26 | [GuardianBench: A Same-Scene Instruction-Contrastive Benchmark for Latent Contextual Risk in Embodied AI](https://arxiv.org/abs/2608.21928) | Zhesheng Zhang; Jiahao Lu; Wei Liu; Cong Pan; *et al.* | arXiv, 2026 | Planning | — | — | — | [PDF](https://arxiv.org/pdf/2608.21928) |
+| B27 | [LIBERO-VIFO: Benchmarking the Capability and Safety of Visual Cue Following in Vision-Language-Action Models](https://arxiv.org/abs/2608.17600) | Zhengyan Qian; Rui Yan; Alex Jinpeng Wang; Jinhui Tang | arXiv, 2026 | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2608.17600) |
+| B28 | [SafeRelBench: A Spatial-Relation-Aware Benchmark for Process-Level Safety in VLM-Driven Embodied Agents](https://arxiv.org/abs/2607.14543) | Huaigang Yang; Ya Li; Min Ren; Bo Dai; Zhenliang Zhang; Zhaofeng He | arXiv, 2026 | Interaction | — | — | — | [PDF](https://arxiv.org/pdf/2607.14543) |
+| B29 | [EgoSafetyBench: A Diagnostic Egocentric Video Benchmark for Evaluating Embodied VLMs as Runtime Safety Guards](https://arxiv.org/abs/2607.00218) | Siddhant Panpatil; Arth Singh; Mijin Koo; Chaeyun Kim; Haon Park; Dasol Choi | arXiv, 2026 | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2607.00218) |
+| B30 | [OopsieVerse: A Safety Benchmark with Damage-Aware Simulation for Robot Manipulation](https://arxiv.org/abs/2606.31993) | Arnav Balaji; Arpit Bahety; Sriniket Ambatipudi; Daniel Lam; Junhong Xu; Roberto Martín-Martín | RSS, 2026 (accepted) | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2606.31993) · [Project](https://robin-lab.cs.utexas.edu/oopsieverse/) |
+| B31 | [REALM: A Unified Red-Teaming Benchmark for Physical-World VLMs](https://arxiv.org/abs/2606.23892) | Yifei Zhao; Qian Lou; Mengxin Zheng | arXiv, 2026 | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2606.23892) · [Code](https://github.com/UCF-ML-Research/REALM) |
+| B32 | [LIBERO-Safety: A Comprehensive Benchmark for Physical and Semantic Safety in Vision-Language-Action Models](https://arxiv.org/abs/2606.23686) | Rongxu Cui; Zongzheng Zhang; Jingrui Pang; Haohan Chi; *et al.* | ECCV, 2026 (accepted) | Robustness | ![CCF B](assets/rank-badges/ccf-b.svg) | — | ![ICORE A*](assets/rank-badges/icore-a-star.svg) | [PDF](https://arxiv.org/pdf/2606.23686) · [Project](https://libero-safety.github.io/) |
+| B33 | [ROBOSHACKLES: A Safety Dataset for Human-Injury Prevention in Embodied Foundation Models](https://arxiv.org/abs/2606.18632) | Zhuowen Yin; Chongyang Liu; Wenzhang Yang; Renjue Li; Yinxing Xue | arXiv, 2026 | Planning | — | — | — | [PDF](https://arxiv.org/pdf/2606.18632) · [Data](https://huggingface.co/datasets/YZW00/RoboShackles) |
+| B34 | [SafeVLA-Bench: A Benchmark for the Success-Safety Gap in Vision-Language-Action Models](https://arxiv.org/abs/2606.00773) | Jialiang Fan; Weizhe Xu; Oleg Sokolsky; Insup Lee; Fanxin Kong | arXiv, 2026 | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2606.00773) · [Project](https://safevla.org/) |
+| B35 | [SafeManip: A Property-Driven Benchmark for Temporal Safety Evaluation in Robotic Manipulation](https://arxiv.org/abs/2605.12386) | Chengyue Huang; Khang Vo Huynh; Sebastian Elbaum; Zsolt Kira; Lu Feng | arXiv, 2026 | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2605.12386) |
+| B36 | [NavTrust: Benchmarking Trustworthiness for Embodied Navigation](https://arxiv.org/abs/2603.19229) | Huaide Jiang; Yash Chaudhary; Yuping Wang; Zehao Wang; *et al.* | IROS, 2026 | Robustness | ![CCF C](assets/rank-badges/ccf-c.svg) | — | ![ICORE A](assets/rank-badges/icore-a.svg) | [PDF](https://arxiv.org/pdf/2603.19229) · [Project](https://navtrust.github.io/) |
+| B37 | [MulRobBench: A Decision-Level Benchmark for Safe and Security-Policy-Compliant Multimodal UAV Agents](https://arxiv.org/abs/2607.23870) | Belal S. Alsinglawi; Weizheng Wang; Junyi Wu; Yi Jiang; Lianhai Lin; Merouane Debbah; Izzat Alsmadi | arXiv, 2026 | Audit/Governance | — | — | — | [PDF](https://arxiv.org/pdf/2607.23870) |
+| B38 | [Explore, Map, Remember, Decide: Are Embodied VLMs Ready for Safety-Critical Scenarios?](https://arxiv.org/abs/2608.08077) | Gabriele La Malfa; Nitay Alon; Emanuele La Malfa; Reuth Mirsky; Stefan Sarkadi | arXiv, 2026 | Robustness | — | — | — | [PDF](https://arxiv.org/pdf/2608.08077) |
 <!-- BENCHMARK_TABLES_END -->
+
+<p align="right"><a href="#top">Back to top ↑</a></p>
+
+---
+
+## Standards & assurance
+
+> 📐 **Connect research evidence to engineering assurance.** These references are starting points, not a compliance checklist. Applicability depends on the robot type, deployment context, and jurisdiction, and management-system certification alone does not establish product safety. Standards and frameworks are not included in the research-paper count above.
+
+### Core standards and frameworks
+
+| Area | Reference | Status | Why it matters for embodied systems |
+|:--|:--|:--|:--|
+| Machinery safety | [ISO 12100:2010 — *Safety of machinery — General principles for design — Risk assessment and risk reduction*](https://www.iso.org/standard/51528.html) | Published; revision underway | Baseline lifecycle process for identifying physical hazards and reducing robot/system risk |
+| Industrial robots | [ISO 10218-1:2025 — *Robotics — Safety requirements — Part 1: Industrial robots*](https://www.iso.org/standard/73933.html) | Published | Inherently safe design and risk reduction for the robot itself |
+| Industrial integration | [ISO 10218-2:2025 — *Robotics — Safety requirements — Part 2: Industrial robot applications and robot cells*](https://www.iso.org/standard/73934.html) | Published | Covers industrial robot application/cell integration; it does not itself validate learned-policy behavior |
+| Service robots | [ISO 13482:2014 — *Robots and robotic devices — Safety requirements for personal care robots*](https://www.iso.org/standard/53820.html) | Published; to be revised | Published safety requirements for personal-care robots, including mobile servant, physical-assistant, and person-carrier robots |
+| Mobile robots | [ISO 3691-4:2023 — *Industrial trucks — Safety requirements and verification — Part 4: Driverless industrial trucks and their systems*](https://www.iso.org/standard/83545.html) | Published; to be revised | Covers driverless industrial trucks—including AGVs and AMRs—in industrial operating zones; public-zone and public-road use is excluded |
+| AI in machinery | [ISO/TR 22100-5:2021 — *Safety of machinery — Relationship with ISO 12100 — Part 5: Implications of artificial intelligence machine learning*](https://www.iso.org/standard/80778.html) | Published | Bridges bounded AI/ML behavior and machinery risk assessment |
+| Safety controls | [ISO 13849-1:2023 — *Safety of machinery — Safety-related parts of control systems — Part 1: General principles for design*](https://www.iso.org/standard/73481.html) | Published | Supports independent safety layers such as interlocks, monitors, and emergency stops |
+| Functional safety | [IEC 62061:2021+AMD1:2024 — *Safety of machinery — Functional safety of safety-related control systems*](https://webstore.iec.ch/en/publication/93654) | Published; consolidated Ed. 2.1 | Evidence basis for the design, verification, and validation of runtime safeguards outside an AI policy |
+| Safety–security interface | [IEC TS 63074:2023 — *Safety of machinery — Security aspects related to functional safety of safety-related control systems*](https://webstore.iec.ch/en/publication/69228) | Published | Connects cyber threats and vulnerabilities to failures of robot safety functions |
+| Industrial cybersecurity | [IEC 62443-4-1:2018 — *Security for industrial automation and control systems — Part 4-1: Secure product development lifecycle requirements*](https://webstore.iec.ch/en/publication/33615) and [IEC 62443-4-2:2019 — *Security for industrial automation and control systems — Part 4-2: Technical security requirements for IACS components*](https://webstore.iec.ch/en/publication/34421) | Published | Relevant when robot controllers, edge devices, software, or networks are products/components within an IACS; Part 4-1 governs developers and maintainers |
+| AI functional safety | [ISO/IEC TR 5469:2024 — *Artificial intelligence — Functional safety and AI systems*](https://www.iso.org/standard/81283.html) | Published | Covers AI in safety functions, safeguards around AI-controlled equipment, and AI used to develop safety functions |
+| AI risk | [ISO/IEC 23894:2023 — *Information technology — Artificial intelligence — Guidance on risk management*](https://www.iso.org/standard/77304.html) | Published | Connects model, system, human, and deployment risk across the lifecycle |
+| AI governance | [ISO/IEC 42001:2023 — *Information technology — Artificial intelligence — Management system*](https://www.iso.org/standard/42001) | Published | Adds organizational ownership, monitoring, incident handling, and continual improvement |
+| Practical AI risk | [NIST AI 100-1 — *Artificial Intelligence Risk Management Framework (AI RMF 1.0)*](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) | Voluntary v1.0 (2023); revision in progress | Provides Govern–Map–Measure–Manage outcomes for embodied-AI risk registers and evaluation plans; see also the [Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) for generative LLM/VLM components |
+| Assurance cases | [ISO/IEC/IEEE 15026-2:2022 — *Systems and software engineering — Systems and software assurance — Part 2: Assurance case*](https://www.iso.org/standard/80625.html) | Published | Structures safety/security claims, arguments, assumptions, and supporting evidence |
+| Autonomous-system assurance | [UL 4600 — *Standard for Evaluation of Autonomous Products*](https://www.shopulstandards.com/ProductDetail.aspx?productId=UL4600_3_S_20230317) | Active Ed. 3 (2023) | Safety-case model for fully autonomous vehicles or vehicle teams operating without expected human intervention; its principles are adjacent and potentially transferable to robotics |
+
+### Standards in progress
+
+- [ISO/FDIS 13482 — *Robotics — Safety requirements for service robots*](https://www.iso.org/standard/83498.html) is the second edition at FDIS stage; ISO 13482:2014 remains the published edition.
+- [ISO/IEC CD TS 22440-1](https://www.iso.org/standard/89535.html), [ISO/IEC CD TS 22440-2](https://www.iso.org/standard/89536.html), and [ISO/IEC CD TS 22440-3](https://www.iso.org/standard/89537.html) cover AI functional-safety requirements, guidance, and examples; all remain committee drafts.
+- [ISO/IEC 27090 — *Cybersecurity — Artificial Intelligence — Addressing security threats and compromises to artificial intelligence systems*](https://www.iso.org/standard/56581.html) is under publication; the final edition/year should not be inferred until ISO publishes it.
 
 <p align="right"><a href="#top">Back to top ↑</a></p>
 
@@ -358,10 +471,10 @@ These collections are discovery aids. Metadata, scope, links, and venue ranks in
 
 ## Maintenance and contributing
 
-Contributions are welcome through pull requests or issues. For a new paper, please provide:
+Contributions—including submissions of your own work—are welcome through pull requests or issues. For a new paper or standards/assurance resource, please provide:
 
 ```text
-Category: Survey | Attack | Defense | Benchmark
+Category: Survey | Attack | Defense | Benchmark | Standard / assurance resource
 Title:
 Authors:
 Venue and year:
