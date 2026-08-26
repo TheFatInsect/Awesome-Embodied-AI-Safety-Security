@@ -28,12 +28,12 @@ The catalog contains **123 categorized entries**: 35 related surveys and 88 tech
 
 | Collection | Count | What it covers |
 |:--|--:|:--|
-| 📚 [Surveys](#surveys) | 35 | Embodied AI, FM/agent security, and adjacent reviews used to map the field |
-| ⚔️ [Attacks](#attacks) | 43 | Jailbreaks, prompt injection, backdoors, poisoning, adversarial inputs, and control hijacking |
-| 🛡️ [Defenses](#defenses) | 20 | Planner screening, runtime enforcement, formal safety, representation repair, and external safeguards |
-| 🧪 [Benchmarks](#benchmarks) | 25 | Planning risk, interactive safety, robustness, red teaming, and system auditing |
+| 📚&nbsp;[Surveys](#surveys) | 35 | Embodied AI, FM/agent security, and adjacent reviews used to map the field |
+| ⚔️&nbsp;[Attacks](#attacks) | 43 | Jailbreaks, prompt injection, backdoors, poisoning, adversarial inputs, and control hijacking |
+| 🛡️&nbsp;[Defenses](#defenses) | 20 | Planner screening, runtime enforcement, formal safety, representation repair, and external safeguards |
+| 🧪&nbsp;[Benchmarks](#benchmarks) | 25 | Planning risk, interactive safety, robustness, red teaming, and system auditing |
 
-<details>
+<details open>
 <summary><strong>Explore the topic map</strong></summary>
 
 | Track | Topics |
